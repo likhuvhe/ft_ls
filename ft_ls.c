@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lkhuvhe <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/02 11:11:16 by lkhuvhe           #+#    #+#             */
-/*   Updated: 2019/09/02 14:37:53 by lkhuvhe          ###   ########.fr       */
+/*   Created: 2019/09/06 13:12:03 by lkhuvhe           #+#    #+#             */
+/*   Updated: 2019/09/06 13:12:08 by lkhuvhe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int			main(int argc, char **argv)
 	t_list *parsed_lst;
 
 	parsed_lst = NULL;
-	if (argc == 2 && ft_strcmp("--", argv[1]) == 0)
+	if (argc == 2 && (ft_strcmp("--", argv[1])) == 0)
 	{
 		just_ls();
 		return (0);
@@ -66,7 +66,7 @@ int			main(int argc, char **argv)
 				{
 					i++;
 					break ;
-			}
+				}
 				if (i == 1)
 					final_flags = ft_strcat(final_flags, argv[i]);
 				else
@@ -85,6 +85,9 @@ int			main(int argc, char **argv)
 			}
 			sort_parsed = ft_sort_list(parsed_lst, &compare);
 		}
+		//ft_putendl(final_flags);
+		//ft_lstiter(sort_parsed, &display_list);
+		//ft_putchar('\n');
 		if (final_flags[0] != '\0' && sort_parsed == NULL)
 			ls_with_flags(flags, final_flags);
 		else

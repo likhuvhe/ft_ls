@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lkhuvhe <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/02 11:14:24 by lkhuvhe           #+#    #+#             */
-/*   Updated: 2019/09/02 11:36:04 by lkhuvhe          ###   ########.fr       */
+/*   Created: 2019/09/06 13:19:07 by lkhuvhe           #+#    #+#             */
+/*   Updated: 2019/09/06 13:19:10 by lkhuvhe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	print_parsed_f_d(t_list *lst, char *flags)
 	temp = NULL;
 	while (lst)
 	{
-		if ((stat(lst->content, &stats)) == 0)
+		if ((lstat(lst->content, &stats)) == 0)
 		{
 			if (S_ISDIR(stats.st_mode))
 				ft_lstadd(&dir, ft_lstnew(lst->content, ft_strlen(lst->content) + 1));
@@ -48,7 +48,7 @@ void	print_parsed_f_d(t_list *lst, char *flags)
 		lst = lst->next;
 	}
 	if (files != NULL)
-		ft_finally_print(files, flags);
+		ft_finally_print(files, flags, NULL);
 	if (dir != NULL)
 	{
 		temp = ft_sort_list(dir, &compare);

@@ -5,12 +5,27 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lkhuvhe <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/02 11:11:44 by lkhuvhe           #+#    #+#             */
-/*   Updated: 2019/09/02 11:11:48 by lkhuvhe          ###   ########.fr       */
+/*   Created: 2019/09/06 13:18:02 by lkhuvhe           #+#    #+#             */
+/*   Updated: 2019/09/06 13:18:04 by lkhuvhe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+static char		*get_the_path(char *parent, char *con)
+{
+	char *s1;
+	char * temp;
+
+	if (parent != NULL)
+	{
+		temp = ft_strjoin(parent, "/");
+		s1 = ft_strjoin(temp, con);
+		free(temp);
+		return (s1);
+	}
+	return (con);
+}
 
 static void		set_time(char *file_a, char *file_b, struct timespec *a,\
 		struct timespec *b)
@@ -24,17 +39,22 @@ static void		set_time(char *file_a, char *file_b, struct timespec *a,\
 }
 
 t_list			*ft_sort_time(t_list *lst,\
-		int (*time_compare)(struct timespec *, struct timespec *))
+		int (*time_compare)(struct timespec *, struct timespec *), char *path)
 {
 	t_list			*temp;
 	void			*swap;
 	struct timespec	time_a;
 	struct timespec	time_b;
+	char *con;
+	char *con_next;
 
 	temp = lst;
+
 	while (lst->next != NULL)
 	{
-		set_time(lst->content, lst->next->content, &time_a, &time_b);
+		con = get_the_path(path, (char *)lst->content);
+		con_next = get_the_path(path, (char *)lst->next->content);
+		set_time(con, con_next, &time_a, &time_b);
 		if (((*time_compare)(&time_a, &time_b)) == -1)
 		{
 			swap = lst->next->content;
