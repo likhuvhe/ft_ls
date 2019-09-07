@@ -100,7 +100,7 @@ void			long_ls(char *path, char *dir_path)
 	{
 		temp = ft_strjoin(dir_path, "/");
 		path_content = ft_strjoin(temp, path);
-		//free(temp);
+		free(temp);
 	}
 	else
 		path_content = path;

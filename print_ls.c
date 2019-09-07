@@ -63,14 +63,57 @@ static t_list		*the_lst(char *option)
 	closedir(current_dir);
 }
 
+static char			*full_path(char *content, char *path)
+{
+	char *path_content;
+	char *temp;
+
+	if (path != NULL)
+	{
+		temp = ft_strjoin(path, "/");
+		path_content = ft_strjoin(temp, content);
+		free(temp);
+	}
+	else
+		path_content = content;
+	return (path_content);
+}
+
 static void			print_l(t_list *list, char *s)
 {
+	int total;
+	t_list *head;
+	char *final_path;
+	
+	total = 0;
+	head = list;
+	//if (s == NULL)
+	//	s = ft_strdup(".");
+	lstat(s, &stats);
+	if(S_ISDIR(stats.st_mode))
+	{
+		while (list)
+		{
+			final_path = full_path(list->content, s);
+			ft_putendl(final_path);
+			if ((lstat(final_path, &stats)) == 0)
+				total += stats.st_blocks;
+			else if (s == NULL && lstat(list->content, &stats))
+				total += stats.st_blocks;
+			list = list->next;
+		}
+		ft_putstr("total ");
+		ft_putnbr(total);
+		ft_putchar('\n');
+	}
+	list = head;
 	while (list)
 	{
 		
 		long_ls((char *)list->content, s);
 		list = list->next;
 	}
+	ft_strdel(&s);
 }
 
 void				ft_finally_print(t_list *list, char *final_flags, char *dir_path)
