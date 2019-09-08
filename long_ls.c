@@ -6,19 +6,19 @@
 /*   By: lkhuvhe <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/06 13:18:38 by lkhuvhe           #+#    #+#             */
-/*   Updated: 2019/09/06 13:18:41 by lkhuvhe          ###   ########.fr       */
+/*   Updated: 2019/09/08 18:29:15 by lkhuvhe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void		format(char *s, char c)
+static void	format(char *s, char c)
 {
 	ft_putstr(s);
 	ft_putchar(c);
 }
 
-static void		permisions2(void)
+static void	permisions2(void)
 {
 	if (stats.st_mode & S_IRGRP)
 		ft_putchar('r');
@@ -46,7 +46,7 @@ static void		permisions2(void)
 		ft_putchar('-');
 }
 
-static void		permisions1(void)
+static void	permisions1(char *path)
 {
 	if (S_ISDIR(stats.st_mode))
 		ft_putchar('d');
@@ -67,46 +67,21 @@ static void		permisions1(void)
 	else
 		ft_putchar('-');
 	permisions2();
+	get_exattr(path);
 }
 
-// static int		has_slash(char *s, char c)
-// {
-// 	while (*s)
-// 	{
-// 		if (*s == c)
-// 			return (1);
-// 		s++;
-// 	}
-// 	return (0);
-// }
-static void ft_get_link_path(char *path)
-{
-	char		result[256];
-	ssize_t		ret;
 
-	ret = readlink(path, result, 255);
-	result[ret] = '\0';
-	ft_putstr(result);
-}
-
-void			long_ls(char *path, char *dir_path)
+void		long_ls(char *path, char *dir_path)
 {
 	char **r;
 	char *s;
 	char *s1;
 	char *path_content;
-	char *temp;
-	if (dir_path != NULL)
-	{
-		temp = ft_strjoin(dir_path, "/");
-		path_content = ft_strjoin(temp, path);
-		free(temp);
-	}
-	else
-		path_content = path;
+
+	path_content = full_path(path, dir_path);
 	if ((lstat(path_content, &stats)) == 0)
 	{
-		permisions1();
+		permisions1(path_content);
 		ft_putchar(' ');
 		ft_putnbr(stats.st_nlink);
 		ft_putchar(' ');
@@ -128,6 +103,6 @@ void			long_ls(char *path, char *dir_path)
 			ft_putstr(" -> ");
 			ft_get_link_path(path_content);
 		}
-		ft_putchar('\n');	
-	}	
+		ft_putchar('\n');
+	}
 }

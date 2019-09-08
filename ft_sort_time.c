@@ -6,7 +6,7 @@
 /*   By: lkhuvhe <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/06 13:18:02 by lkhuvhe           #+#    #+#             */
-/*   Updated: 2019/09/06 13:18:04 by lkhuvhe          ###   ########.fr       */
+/*   Updated: 2019/09/08 16:06:36 by lkhuvhe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static char		*get_the_path(char *parent, char *con)
 {
 	char *s1;
-	char * temp;
+	char *temp;
 
 	if (parent != NULL)
 	{
@@ -41,15 +41,12 @@ static void		set_time(char *file_a, char *file_b, struct timespec *a,\
 t_list			*ft_sort_time(t_list *lst,\
 		int (*time_compare)(struct timespec *, struct timespec *), char *path)
 {
-	t_list			*temp;
-	void			*swap;
-	struct timespec	time_a;
-	struct timespec	time_b;
-	char *con;
-	char *con_next;
+	t_list	*temp;
+	void	*swap;
+	char	*con;
+	char	*con_next;
 
 	temp = lst;
-
 	while (lst->next != NULL)
 	{
 		con = get_the_path(path, (char *)lst->content);

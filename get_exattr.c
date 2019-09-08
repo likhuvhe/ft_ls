@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_recurse.c                                       :+:      :+:    :+:   */
+/*   get_exattr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lkhuvhe <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/06 13:17:29 by lkhuvhe           #+#    #+#             */
-/*   Updated: 2019/09/06 13:17:33 by lkhuvhe          ###   ########.fr       */
+/*   Created: 2019/09/08 16:08:17 by lkhuvhe           #+#    #+#             */
+/*   Updated: 2019/09/08 16:08:24 by lkhuvhe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-char        *get_directory(t_list *list)
+void		get_exattr(char *path)
 {
-    struct stat info;
-    char    *is_dir;
-    
-    while (list)
-    {
-        if (lstat(list->content, &info) == 0)
-        {
-            if (S_ISDIR(stats.st_mode))
-            {
-                is_dir = ft_strdup(list->content);
-            }
-        }
-    }
+	char	buf[101];
+
+	if (listxattr(path, buf, sizeof(buf), XATTR_NOFOLLOW) > 0)
+		ft_putchar('@');
+	else
+		ft_putchar(' ');
 }
