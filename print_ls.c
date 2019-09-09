@@ -102,7 +102,7 @@ static void		do_option(t_list *list, char *final_flags, char *dir_path)
 		else
 			ft_lstiter(list, &display_list);
 		if (is_option('R', final_flags) != 0)
-			recurse(list, final_flags);
+			recurse(list, final_flags, dir_path);
 	}
 }
 

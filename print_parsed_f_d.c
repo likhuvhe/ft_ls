@@ -6,7 +6,7 @@
 /*   By: lkhuvhe <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/06 13:19:07 by lkhuvhe           #+#    #+#             */
-/*   Updated: 2019/09/08 16:26:19 by lkhuvhe          ###   ########.fr       */
+/*   Updated: 2019/09/09 16:27:20 by lkhuvhe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ static void	ft_files_dir_error(char *s)
 
 	sorted_lst = NULL;
 	s2 = NULL;
-	ft_lstadd(&sorted_lst, ft_lstnew(s, ft_strlen(s) + 1));
+	ft_lstadd(&s2, ft_lstnew(s, ft_strlen(s) + 1));
 	sorted_lst = ft_sort_list(s2, &compare);
-	while (sorted_lst)
+	while (sorted_lst != NULL)
 	{
 		ft_putstr("ft_ls: ");
 		ft_putstr(sorted_lst->content);

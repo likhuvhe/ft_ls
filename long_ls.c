@@ -6,7 +6,7 @@
 /*   By: lkhuvhe <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/06 13:18:38 by lkhuvhe           #+#    #+#             */
-/*   Updated: 2019/09/08 18:29:15 by lkhuvhe          ###   ########.fr       */
+/*   Updated: 2019/09/09 09:40:57 by lkhuvhe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,33 +70,38 @@ static void	permisions1(char *path)
 	get_exattr(path);
 }
 
+static void	do_long_ls(void)
+{
+	char **r;
+	char *t;
+	char *t1;
+
+	ft_putchar(' ');
+	ft_putnbr(stats.st_nlink);
+	ft_putchar(' ');
+	user = getpwuid(stats.st_uid);
+	format(user->pw_name, ' ');
+	grp = getgrgid(stats.st_gid);
+	format(grp->gr_name, ' ');
+	ft_putnbr(stats.st_size);
+	ft_putchar(' ');
+	t = ft_strdup(ctime(&stats.st_mtime));
+	t1 = ft_strsub(t, 4, 12);
+	r = ft_strsplit(t1, ' ');
+	format(r[1], ' ');
+	format(r[0], ' ');
+	format(r[2], ' ');
+}
 
 void		long_ls(char *path, char *dir_path)
 {
-	char **r;
-	char *s;
-	char *s1;
 	char *path_content;
 
 	path_content = full_path(path, dir_path);
 	if ((lstat(path_content, &stats)) == 0)
 	{
 		permisions1(path_content);
-		ft_putchar(' ');
-		ft_putnbr(stats.st_nlink);
-		ft_putchar(' ');
-		user = getpwuid(stats.st_uid);
-		format(user->pw_name, ' ');
-		grp = getgrgid(stats.st_gid);
-		format(grp->gr_name, ' ');
-		ft_putnbr(stats.st_size);
-		ft_putchar(' ');
-		s = ft_strdup(ctime(&stats.st_mtime));
-		s1 = ft_strsub(s, 4, 12);
-		r = ft_strsplit(s1, ' ');
-		format(r[1], ' ');
-		format(r[0], ' ');
-		format(r[2], ' ');
+		do_long_ls();
 		ft_putstr(path);
 		if (S_ISLNK(stats.st_mode))
 		{
