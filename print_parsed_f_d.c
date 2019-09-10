@@ -28,6 +28,7 @@ static void	ft_files_dir_error(char *s)
 		ft_putendl(": No such file or directory");
 		sorted_lst = sorted_lst->next;
 	}
+	ft_lstdel(&s2, &del);
 }
 
 static void	ft_do_directories(t_list *directory, char *flags)

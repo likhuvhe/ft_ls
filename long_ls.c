@@ -72,9 +72,10 @@ static void	permisions1(char *path)
 
 static void	do_long_ls(void)
 {
-	char **r;
-	char *t;
-	char *t1;
+	char	**r;
+	char	*t;
+	char	*t1;
+	int		i;
 
 	ft_putchar(' ');
 	ft_putnbr(stats.st_nlink);
@@ -91,6 +92,11 @@ static void	do_long_ls(void)
 	format(r[1], ' ');
 	format(r[0], ' ');
 	format(r[2], ' ');
+	ft_strdel(&t);
+	ft_strdel(&t1);
+	i = 0;
+	while (r[i] != '\0')
+		ft_strdel(&r[i++]);
 }
 
 void		long_ls(char *path, char *dir_path)

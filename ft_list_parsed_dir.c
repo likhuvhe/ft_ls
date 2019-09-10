@@ -29,9 +29,11 @@ void		ft_list_parsed_dir(t_list *dir, char *flags)
 {
 	t_list	*list;
 	int		size;
+	//t_list	*temp;
 
 	size = list_size(dir);
 	list = NULL;
+	//temp = dir;
 	while (dir)
 	{
 		if (size > 1)
@@ -41,9 +43,10 @@ void		ft_list_parsed_dir(t_list *dir, char *flags)
 		}
 		list = creat_lst_dir(dir->content, flags);
 		ft_finally_print(list, flags, (char *)dir->content);
-		ft_lstdel(&list, &del);
 		if (dir->next != NULL)
 			ft_putchar('\n');
 		dir = dir->next;
 	}
+	//dir = temp;
+	//ft_lstdel(&dir, &del);
 }

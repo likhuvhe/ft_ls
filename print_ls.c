@@ -37,8 +37,8 @@ static t_list	*the_lst(char *option)
 			ft_lstadd(&ls_list, ft_lstnew(r->d_name, ft_strlen(r->d_name) + 1));
 	}
 	sort_ls = ft_sort_list(ls_list, &compare);
-	return (sort_ls);
 	closedir(current_dir);
+	return (sort_ls);
 }
 
 static void		get_total(t_list *list, char *s)
@@ -102,7 +102,11 @@ static void		do_option(t_list *list, char *final_flags, char *dir_path)
 		else
 			ft_lstiter(list, &display_list);
 		if (is_option('R', final_flags) != 0)
+		{
+			ft_putchar('\n');
 			recurse(list, final_flags, dir_path);
+		}
+		ft_lstdel(&list, &del);
 	}
 }
 

@@ -18,7 +18,7 @@ t_list		*creat_lst_dir(char *directory, char *option)
 	t_list	*sort_ls;
 	DIR		*current_dir;
 	size_t	len;
-
+	
 	ls_list = NULL;
 	len = 0;
 	current_dir = opendir(directory);
@@ -37,6 +37,6 @@ t_list		*creat_lst_dir(char *directory, char *option)
 			ft_lstadd(&ls_list, ft_lstnew(r->d_name, ft_strlen(r->d_name) + 1));
 	}
 	sort_ls = ft_sort_list(ls_list, &compare);
-	return (sort_ls);
 	closedir(current_dir);
+	return (sort_ls);
 }

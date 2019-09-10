@@ -16,7 +16,7 @@ CC = gcc
 OPTION = -o
 SRC = check_options.c compare.c del.c display_list.c ft_list_parsed_dir.c ft_ls.c ft_lst_rev.c \
 	  ft_sort_time.c ft_sort.c ft_timecmp.c is_option.c long_ls.c print_ls.c print_parsed_f_d.c \
-	  get_exattr.c full_path.c recurse.c creat_lst_dir.c ft_get_link_path.c
+	  get_exattr.c full_path.c recurse.c creat_lst_dir.c ft_get_link_path.c just_ls.c
 LIB = -L libft/ -lft -I
 all: $(NAME)
 

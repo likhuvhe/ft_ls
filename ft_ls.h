@@ -29,6 +29,7 @@ struct timespec	time_a;
 struct timespec	time_b;
 
 void			get_exattr(char *path);
+void			just_ls(void);
 void			ft_get_link_path(char *path);
 char			*full_path(char *content, char *path);
 void			recurse(t_list *list, char *options, char *path);

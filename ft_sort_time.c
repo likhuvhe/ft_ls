@@ -61,6 +61,11 @@ t_list			*ft_sort_time(t_list *lst,\
 		}
 		else
 			lst = lst->next;
+		if (path != NULL)
+		{
+			ft_strdel(&con);
+			ft_strdel(&con_next);
+		}
 	}
 	lst = temp;
 	return (lst);

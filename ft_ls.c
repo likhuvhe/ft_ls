@@ -12,25 +12,6 @@
 
 #include "ft_ls.h"
 
-static void	just_ls(void)
-{
-	t_list	*ls_list;
-	t_list	*sort_ls;
-	DIR		*current_dir;
-
-	ls_list = NULL;
-	current_dir = opendir(".");
-	while ((r = readdir(current_dir)))
-	{
-		if (r->d_name[0] != '.')
-			ft_lstadd(&ls_list, ft_lstnew(r->d_name, ft_strlen(r->d_name) + 1));
-	}
-	sort_ls = ft_sort_list(ls_list, &compare);
-	ft_lstiter(sort_ls, &display_list);
-	ft_putchar('\n');
-	closedir(current_dir);
-}
-
 static int	is_flag(char c)
 {
 	if (c == '-')
@@ -40,23 +21,54 @@ static int	is_flag(char c)
 
 static char	*do_option(char *final_flags, int ac, int i, char **av)
 {
+	char *temp;
+
 	while (i < ac)
 	{
 		if (is_flag(av[i][0]) == 1)
 		{
+			temp = final_flags;
 			if (ft_strcmp("--", av[i]) == 0 && av[i + 1][0] == '-')
 			{
 				i++;
 				break ;
 			}
-			final_flags = (i == 1) ? ft_strcat(final_flags, av[i]) : \
-				ft_strcat(final_flags, av[i] + 1);
+			final_flags = (i == 1) ? ft_strjoin(final_flags, av[i]) : \
+				ft_strjoin(final_flags, av[i] + 1);
+			free(temp);
 		}
 		else
 			break ;
 		i++;
 	}
 	return (final_flags);
+}
+
+static int	i_count(char *final_flags, int ac, int i, char **av)
+{
+	char *temp;
+
+	final_flags = ft_strnew(1);
+	while (i < ac)
+	{
+		if (is_flag(av[i][0]) == 1)
+		{
+			temp = final_flags;
+			if (ft_strcmp("--", av[i]) == 0 && av[i + 1][0] == '-')
+			{
+				i++;
+				break ;
+			}
+			final_flags = (i == 1) ? ft_strjoin(final_flags, av[i]) : \
+				ft_strjoin(final_flags, av[i] + 1);
+			free(temp);
+		}
+		else
+			break ;
+		i++;
+	}
+	ft_strdel(&final_flags);
+	return (i);
 }
 
 static void	do_ft_ls(int argc, int i, char *final_flags, char **argv)
@@ -71,7 +83,7 @@ static void	do_ft_ls(int argc, int i, char *final_flags, char **argv)
 	i = 1;
 	sort_parsed = NULL;
 	final_flags = do_option(final_flags, argc, i, argv);
-	i = 2;
+	i = i_count(final_flags, argc, i, argv);
 	if (i < argc)
 	{
 		parsed_lst = ft_lstnew(argv[i], ft_strlen(argv[i]) + 1);
@@ -81,6 +93,9 @@ static void	do_ft_ls(int argc, int i, char *final_flags, char **argv)
 	}
 	(final_flags[0] != '\0' && sort_parsed == NULL) ? ls_with_flags(flags, \
 			final_flags) : print_parsed_f_d(sort_parsed, final_flags);
+	ft_strdel(&flags);
+	ft_strdel(&final_flags);
+	ft_lstdel(&sort_parsed, &del);
 }
 
 int			main(int argc, char **argv)
@@ -97,5 +112,6 @@ int			main(int argc, char **argv)
 		do_ft_ls(argc, i, final_flags, argv);
 	else
 		just_ls();
+	sleep(70);
 	return (0);
 }
