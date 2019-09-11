@@ -116,4 +116,5 @@ void		long_ls(char *path, char *dir_path)
 		}
 		ft_putchar('\n');
 	}
+	ft_strdel(&path_content);
 }

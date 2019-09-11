@@ -66,5 +66,9 @@ void		print_parsed_f_d(t_list *lst, char *flags)
 	if (files != NULL)
 		ft_finally_print(files, flags, NULL);
 	if (dir != NULL)
+	{
 		ft_do_directories(dir, flags);
+		//sleep(60);
+	}//ft_lstdel(&files, &del);
+	//ft_lstdel(&dir, &del);
 }

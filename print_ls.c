@@ -53,7 +53,9 @@ static void		get_total(t_list *list, char *s)
 		if ((lstat(final_path, &stats)) == 0)
 			total += stats.st_blocks;
 		list = list->next;
+		ft_strdel(&final_path);
 	}
+
 	ft_putstr("total ");
 	ft_putnbr(total);
 	ft_putchar('\n');
@@ -62,10 +64,10 @@ static void		get_total(t_list *list, char *s)
 static void		print_l(t_list *list, char *s)
 {
 	t_list	*head;
+	char	*temp;
 
 	head = list;
-	if (s == NULL)
-		s = ft_strdup(".");
+
 	lstat(s, &stats);
 	if (S_ISDIR(stats.st_mode))
 		get_total(list, s);
@@ -75,7 +77,6 @@ static void		print_l(t_list *list, char *s)
 		long_ls((char *)list->content, s);
 		list = list->next;
 	}
-	ft_strdel(&s);
 }
 
 static void		do_option(t_list *list, char *final_flags, char *dir_path)
@@ -98,7 +99,11 @@ static void		do_option(t_list *list, char *final_flags, char *dir_path)
 			}
 		}
 		if (is_option('l', final_flags) != 0)
+		{
+			if (dir_path == NULL)
+				dir_path = ft_strdup(".");
 			print_l(list, dir_path);
+		}
 		else
 			ft_lstiter(list, &display_list);
 		if (is_option('R', final_flags) != 0)
@@ -107,6 +112,7 @@ static void		do_option(t_list *list, char *final_flags, char *dir_path)
 			recurse(list, final_flags, dir_path);
 		}
 		ft_lstdel(&list, &del);
+		ft_strdel(&dir_path);
 	}
 }
 
@@ -116,4 +122,5 @@ void			ft_finally_print(t_list *list, char *final_flags, \
 	if (list == NULL)
 		list = the_lst(final_flags);
 	do_option(list, final_flags, dir_path);
+		//sleep(60);
 }
