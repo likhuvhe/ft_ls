@@ -54,6 +54,7 @@ static void		get_total(t_list *list, char *s)
 			total += stats.st_blocks;
 		list = list->next;
 		ft_strdel(&final_path);
+		final_path = NULL;
 	}
 
 	ft_putstr("total ");

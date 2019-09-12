@@ -38,5 +38,6 @@ t_list		*creat_lst_dir(char *directory, char *option)
 	}
 	sort_ls = ft_sort_list(ls_list, &compare);
 	closedir(current_dir);
+
 	return (sort_ls);
 }

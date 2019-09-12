@@ -48,9 +48,11 @@ static int	i_count(char *final_flags, int ac, int i, char **av)
 {
 	char *temp;
 
-	final_flags = ft_strnew(1);
+	final_flags = ft_strnew(1); // [check]
 	while (i < ac)
 	{
+		if (av[i][0] == '-' && av[i][1] == '\0')
+			break ;
 		if (is_flag(av[i][0]) == 1)
 		{
 			temp = final_flags;
@@ -70,7 +72,24 @@ static int	i_count(char *final_flags, int ac, int i, char **av)
 	ft_strdel(&final_flags);
 	return (i);
 }
+/* void 	free_list(t_list **list)
+{
+	t_list *head;
 
+	head = NULL;
+
+	if (list && *list)
+	{
+		while ((*list)->next)
+		{
+			head = *list;
+			*list = (*list)->next;
+			head->next = NULL;
+			free(head);
+		}
+		free(*list);
+	}
+} */
 static void	do_ft_ls(int argc, int i, char *final_flags, char **argv)
 {
 	t_list	*parsed_lst;
@@ -83,6 +102,7 @@ static void	do_ft_ls(int argc, int i, char *final_flags, char **argv)
 	i = 1;
 	sort_parsed = NULL;
 	final_flags = do_option(final_flags, argc, i, argv);
+
 	i = i_count(final_flags, argc, i, argv);
 	if (i < argc)
 	{
@@ -93,9 +113,9 @@ static void	do_ft_ls(int argc, int i, char *final_flags, char **argv)
 	}
 	(final_flags[0] != '\0' && sort_parsed == NULL) ? ls_with_flags(flags, \
 			final_flags) : print_parsed_f_d(sort_parsed, final_flags);
+	ft_lstdel(&parsed_lst, &del);
 	ft_strdel(&flags);
 	ft_strdel(&final_flags);
-	ft_lstdel(&sort_parsed, &del);
 }
 
 int			main(int argc, char **argv)
@@ -112,6 +132,6 @@ int			main(int argc, char **argv)
 		do_ft_ls(argc, i, final_flags, argv);
 	else
 		just_ls();
-	sleep(70);
+	sleep(40);
 	return (0);
 }

@@ -97,6 +97,7 @@ static void	do_long_ls(void)
 	i = 0;
 	while (r[i] != '\0')
 		ft_strdel(&r[i++]);
+	free(r);
 }
 
 void		long_ls(char *path, char *dir_path)

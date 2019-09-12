@@ -31,11 +31,12 @@ void	recurse(t_list *list, char *options, char *path)
 				ft_putendl(list->content);
 				lst = creat_lst_dir(final_path, options);
 				ft_finally_print(lst, options, final_path);
-				ft_lstdel(&lst, &del);
+				//ft_lstdel(&lst, &del);
 			}
 		}
-		ft_strdel(&final_path);
 		list = list->next;
+		//ft_strdel(&final_path);
 	}
+	//free(path);
 	return ;
 }
