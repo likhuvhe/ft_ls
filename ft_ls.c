@@ -6,7 +6,7 @@
 /*   By: lkhuvhe <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/06 13:12:03 by lkhuvhe           #+#    #+#             */
-/*   Updated: 2019/09/09 16:25:51 by lkhuvhe          ###   ########.fr       */
+/*   Updated: 2019/09/13 13:57:07 by lkhuvhe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static char	*do_option(char *final_flags, int ac, int i, char **av)
 			}
 			final_flags = (i == 1) ? ft_strjoin(final_flags, av[i]) : \
 				ft_strjoin(final_flags, av[i] + 1);
-			free(temp);
+			ft_strdel(&temp);
 		}
 		else
 			break ;
@@ -48,7 +48,7 @@ static int	i_count(char *final_flags, int ac, int i, char **av)
 {
 	char *temp;
 
-	final_flags = ft_strnew(1); // [check]
+	final_flags = ft_strnew(0);
 	while (i < ac)
 	{
 		if (av[i][0] == '-' && av[i][1] == '\0')
@@ -63,7 +63,7 @@ static int	i_count(char *final_flags, int ac, int i, char **av)
 			}
 			final_flags = (i == 1) ? ft_strjoin(final_flags, av[i]) : \
 				ft_strjoin(final_flags, av[i] + 1);
-			free(temp);
+			ft_strdel(&temp);
 		}
 		else
 			break ;
@@ -72,24 +72,7 @@ static int	i_count(char *final_flags, int ac, int i, char **av)
 	ft_strdel(&final_flags);
 	return (i);
 }
-/* void 	free_list(t_list **list)
-{
-	t_list *head;
 
-	head = NULL;
-
-	if (list && *list)
-	{
-		while ((*list)->next)
-		{
-			head = *list;
-			*list = (*list)->next;
-			head->next = NULL;
-			free(head);
-		}
-		free(*list);
-	}
-} */
 static void	do_ft_ls(int argc, int i, char *final_flags, char **argv)
 {
 	t_list	*parsed_lst;
@@ -98,11 +81,10 @@ static void	do_ft_ls(int argc, int i, char *final_flags, char **argv)
 
 	parsed_lst = NULL;
 	flags = ft_strdup("artRl");
-	final_flags = ft_strnew(1);
+	final_flags = ft_strnew(0);
 	i = 1;
 	sort_parsed = NULL;
 	final_flags = do_option(final_flags, argc, i, argv);
-
 	i = i_count(final_flags, argc, i, argv);
 	if (i < argc)
 	{
@@ -113,7 +95,7 @@ static void	do_ft_ls(int argc, int i, char *final_flags, char **argv)
 	}
 	(final_flags[0] != '\0' && sort_parsed == NULL) ? ls_with_flags(flags, \
 			final_flags) : print_parsed_f_d(sort_parsed, final_flags);
-	ft_lstdel(&parsed_lst, &del);
+	ft_lstdel(&sort_parsed, &del);
 	ft_strdel(&flags);
 	ft_strdel(&final_flags);
 }
@@ -132,6 +114,6 @@ int			main(int argc, char **argv)
 		do_ft_ls(argc, i, final_flags, argv);
 	else
 		just_ls();
-	sleep(40);
+		sleep(40);
 	return (0);
 }

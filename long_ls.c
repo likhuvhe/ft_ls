@@ -6,7 +6,7 @@
 /*   By: lkhuvhe <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/06 13:18:38 by lkhuvhe           #+#    #+#             */
-/*   Updated: 2019/09/09 09:40:57 by lkhuvhe          ###   ########.fr       */
+/*   Updated: 2019/09/13 14:37:44 by lkhuvhe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ static void	do_long_ls(void)
 	char	*t1;
 	int		i;
 
-	ft_putchar(' ');
 	ft_putnbr(stats.st_nlink);
 	ft_putchar(' ');
 	user = getpwuid(stats.st_uid);
@@ -108,6 +107,7 @@ void		long_ls(char *path, char *dir_path)
 	if ((lstat(path_content, &stats)) == 0)
 	{
 		permisions1(path_content);
+		ft_putchar(' ');
 		do_long_ls();
 		ft_putstr(path);
 		if (S_ISLNK(stats.st_mode))

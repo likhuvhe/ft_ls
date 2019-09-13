@@ -28,15 +28,14 @@ void	recurse(t_list *list, char *options, char *path)
 		{
 			if (S_ISDIR(stats.st_mode))
 			{
-				ft_putendl(list->content);
+				ft_putstr(list->content);
+				ft_putendl(":");
 				lst = creat_lst_dir(final_path, options);
 				ft_finally_print(lst, options, final_path);
-				//ft_lstdel(&lst, &del);
 			}
 		}
 		list = list->next;
-		//ft_strdel(&final_path);
+		free(path);
 	}
-	//free(path);
 	return ;
 }

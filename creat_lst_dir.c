@@ -6,7 +6,7 @@
 /*   By: lkhuvhe <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/08 14:06:13 by lkhuvhe           #+#    #+#             */
-/*   Updated: 2019/09/08 14:07:30 by lkhuvhe          ###   ########.fr       */
+/*   Updated: 2019/09/13 13:49:26 by lkhuvhe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_list		*creat_lst_dir(char *directory, char *option)
 	t_list	*sort_ls;
 	DIR		*current_dir;
 	size_t	len;
-	
+
 	ls_list = NULL;
 	len = 0;
 	current_dir = opendir(directory);
@@ -38,6 +38,5 @@ t_list		*creat_lst_dir(char *directory, char *option)
 	}
 	sort_ls = ft_sort_list(ls_list, &compare);
 	closedir(current_dir);
-
 	return (sort_ls);
 }

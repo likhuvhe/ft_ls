@@ -27,6 +27,12 @@ static char		*get_the_path(char *parent, char *con)
 	return (con);
 }
 
+static void		free_str(char *con, char *con_next)
+{
+	ft_strdel(&con);
+	ft_strdel(&con_next);
+}
+
 static void		set_time(char *file_a, char *file_b, struct timespec *a,\
 		struct timespec *b)
 {
@@ -62,10 +68,7 @@ t_list			*ft_sort_time(t_list *lst,\
 		else
 			lst = lst->next;
 		if (path != NULL)
-		{
-			ft_strdel(&con);
-			ft_strdel(&con_next);
-		}
+			free_str(con, con_next);
 	}
 	lst = temp;
 	return (lst);
