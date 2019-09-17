@@ -20,6 +20,7 @@
 # include <sys/stat.h>
 # include "libft/libft.h"
 # include <sys/xattr.h>
+# include <stdio.h>
 
 struct stat		stats;
 struct passwd	*user;
@@ -30,9 +31,10 @@ struct timespec	time_b;
 
 void			get_exattr(char *path);
 void			just_ls(void);
+t_list			*lst_sort_ascii(t_list *lst);
 void			ft_get_link_path(char *path);
 char			*full_path(char *content, char *path);
-void			recurse(t_list *list, char *options, char *path);
+void			recurse(t_list *list, char *options, char *parsed_path);
 t_list			*creat_lst_dir(char *directory, char *option);
 void			long_ls(char *path, char *dir_path);
 int				is_option(char c, char *str);

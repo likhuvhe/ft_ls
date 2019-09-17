@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lkhuvhe <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/06 13:15:26 by lkhuvhe           #+#    #+#             */
-/*   Updated: 2019/09/08 15:51:34 by lkhuvhe          ###   ########.fr       */
+/*   Created: 2019/09/17 18:10:14 by lkhuvhe           #+#    #+#             */
+/*   Updated: 2019/09/17 18:10:36 by lkhuvhe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,18 @@ static char		error_flag(char *s, char *s1)
 void			ls_with_flags(char *s1, char *s2)
 {
 	char	err;
-	t_list	*dummy;
-
+	t_list *list;
+	list = NULL;
 	if ((check_options(s1, s2)) == (int)(ft_strlen(s2)) - 1)
 	{
-		dummy = NULL;
-		ft_finally_print(dummy, s2, NULL);
+		ft_finally_print(NULL, s2, NULL);
+		if (is_option('R', s2) != 0)
+		{
+			ft_putchar('\n');
+			list = creat_lst_dir(".", s2);
+			recurse(list, s2, NULL);
+			ft_lstdel(&list, &del);
+		}
 	}
 	else
 	{
@@ -78,6 +84,5 @@ void			ls_with_flags(char *s1, char *s2)
 		ft_putchar(err);
 		ft_putchar('\n');
 		ft_putendl("usage: ft_ls [-Ralrt] [file ...]");
-		return ;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: lkhuvhe <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/06 13:12:03 by lkhuvhe           #+#    #+#             */
-/*   Updated: 2019/09/13 13:57:07 by lkhuvhe          ###   ########.fr       */
+/*   Updated: 2019/09/15 10:14:34 by lkhuvhe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,6 @@ int			main(int argc, char **argv)
 		do_ft_ls(argc, i, final_flags, argv);
 	else
 		just_ls();
-		sleep(40);
+	sleep(50);
 	return (0);
 }

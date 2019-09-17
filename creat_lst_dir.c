@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lkhuvhe <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/08 14:06:13 by lkhuvhe           #+#    #+#             */
-/*   Updated: 2019/09/13 13:49:26 by lkhuvhe          ###   ########.fr       */
+/*   Created: 2019/09/17 18:14:28 by lkhuvhe           #+#    #+#             */
+/*   Updated: 2019/09/17 18:15:00 by lkhuvhe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ t_list		*creat_lst_dir(char *directory, char *option)
 
 	ls_list = NULL;
 	len = 0;
-	current_dir = opendir(directory);
+	if ((current_dir = opendir(directory)))
+	{
 	if (is_option('a', option) == 0)
 	{
 		while ((r = readdir(current_dir)))
@@ -36,7 +37,11 @@ t_list		*creat_lst_dir(char *directory, char *option)
 		while ((r = readdir(current_dir)))
 			ft_lstadd(&ls_list, ft_lstnew(r->d_name, ft_strlen(r->d_name) + 1));
 	}
-	sort_ls = ft_sort_list(ls_list, &compare);
+	sort_ls = lst_sort_ascii(ls_list);//, &compare); this needs to be fixed:
 	closedir(current_dir);
 	return (sort_ls);
+	}
+	ft_putstr("ft_ls: ");
+	perror(directory);
+	return 0;
 }
