@@ -6,7 +6,7 @@
 /*   By: lkhuvhe <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 18:39:12 by lkhuvhe           #+#    #+#             */
-/*   Updated: 2019/09/17 18:39:16 by lkhuvhe          ###   ########.fr       */
+/*   Updated: 2019/09/18 16:42:13 by lkhuvhe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ static void		ft_do_directories(t_list *directory, char *flags)
 	temp = NULL;
 	temp = ft_sort_list(directory, &compare);
 	ft_list_parsed_dir(temp, flags);
-	 while (temp)
-	 {
-	 	free(temp);
-	 	temp = temp->next;
-	 }
-	 temp = NULL;
+	while (temp)
+	{
+		free(temp);
+		temp = temp->next;
+	}
+	temp = NULL;
 }
 
 void			print_parsed_f_d(t_list *lst, char *flags)

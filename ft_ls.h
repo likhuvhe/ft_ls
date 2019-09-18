@@ -31,6 +31,7 @@ struct timespec	time_b;
 
 void			get_exattr(char *path);
 void			just_ls(void);
+t_list			*the_lst(char *option);
 t_list			*lst_sort_ascii(t_list *lst);
 void			ft_get_link_path(char *path);
 char			*full_path(char *content, char *path);

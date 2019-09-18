@@ -5,20 +5,20 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lkhuvhe <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/06 13:18:38 by lkhuvhe           #+#    #+#             */
-/*   Updated: 2019/09/13 14:37:44 by lkhuvhe          ###   ########.fr       */
+/*   Created: 2019/09/18 09:07:58 by lkhuvhe           #+#    #+#             */
+/*   Updated: 2019/09/18 09:08:51 by lkhuvhe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void	format(char *s, char c)
+static void		format(char *s, char c)
 {
 	ft_putstr(s);
 	ft_putchar(c);
 }
 
-static void	permisions2(void)
+static void		permisions2(void)
 {
 	if (stats.st_mode & S_IRGRP)
 		ft_putchar('r');
@@ -46,7 +46,7 @@ static void	permisions2(void)
 		ft_putchar('-');
 }
 
-static void	permisions1(char *path)
+static void		permisions1(char *path)
 {
 	if (S_ISDIR(stats.st_mode))
 		ft_putchar('d');
@@ -62,19 +62,22 @@ static void	permisions1(char *path)
 		ft_putchar('w');
 	else
 		ft_putchar('-');
-	if (stats.st_mode & S_IXUSR)
+	if (stats.st_mode & S_ISUID)
+		ft_putchar('S');
+	else if (stats.st_mode & S_IXUSR)
 		ft_putchar('x');
 	else
 		ft_putchar('-');
 	permisions2();
 	get_exattr(path);
+	ft_putchar(' ');
 }
 
-static void	do_long_ls(void)
+static void		long_ls_contents(void)
 {
 	char	**r;
-	char	*t;
-	char	*t1;
+	char	*s;
+	char	*s1;
 	int		i;
 
 	ft_putnbr(stats.st_nlink);
@@ -85,21 +88,21 @@ static void	do_long_ls(void)
 	format(grp->gr_name, ' ');
 	ft_putnbr(stats.st_size);
 	ft_putchar(' ');
-	t = ft_strdup(ctime(&stats.st_mtime));
-	t1 = ft_strsub(t, 4, 12);
-	r = ft_strsplit(t1, ' ');
+	s = ft_strdup(ctime(&stats.st_mtime));
+	s1 = ft_strsub(s, 4, 12);
+	r = ft_strsplit(s1, ' ');
 	format(r[1], ' ');
 	format(r[0], ' ');
 	format(r[2], ' ');
-	ft_strdel(&t);
-	ft_strdel(&t1);
 	i = 0;
-	while (r[i] != '\0')
-		ft_strdel(&r[i++]);
+	while (r[i] != NULL)
+		ft_strdel(&(r[i++]));
 	free(r);
+	ft_strdel(&s);
+	ft_strdel(&s1);
 }
 
-void		long_ls(char *path, char *dir_path)
+void			long_ls(char *path, char *dir_path)
 {
 	char *path_content;
 
@@ -107,8 +110,7 @@ void		long_ls(char *path, char *dir_path)
 	if ((lstat(path_content, &stats)) == 0)
 	{
 		permisions1(path_content);
-		ft_putchar(' ');
-		do_long_ls();
+		long_ls_contents();
 		ft_putstr(path);
 		if (S_ISLNK(stats.st_mode))
 		{

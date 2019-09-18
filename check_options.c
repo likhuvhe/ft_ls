@@ -6,7 +6,7 @@
 /*   By: lkhuvhe <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 18:10:14 by lkhuvhe           #+#    #+#             */
-/*   Updated: 2019/09/17 18:10:36 by lkhuvhe          ###   ########.fr       */
+/*   Updated: 2019/09/18 15:48:58 by lkhuvhe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ static char		error_flag(char *s, char *s1)
 void			ls_with_flags(char *s1, char *s2)
 {
 	char	err;
-	t_list *list;
+	t_list	*list;
+
 	list = NULL;
 	if ((check_options(s1, s2)) == (int)(ft_strlen(s2)) - 1)
 	{

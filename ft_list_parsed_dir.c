@@ -6,7 +6,7 @@
 /*   By: lkhuvhe <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 18:30:44 by lkhuvhe           #+#    #+#             */
-/*   Updated: 2019/09/17 18:30:54 by lkhuvhe          ###   ########.fr       */
+/*   Updated: 2019/09/18 18:18:03 by lkhuvhe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,13 @@ static int	ft_list_size(t_list *begin_list)
 		list = list->next;
 	}
 	return (index);
+}
+
+static void	do_cap_r(t_list *list, char *flags, char *dir_conten)
+{
+	recurse(list, flags, dir_conten);
+	if (is_option('r', flags) == 0)
+		ft_lstdel(&list, &del);
 }
 
 void		ft_list_parsed_dir(t_list *dir, char *flags)
@@ -46,10 +53,7 @@ void		ft_list_parsed_dir(t_list *dir, char *flags)
 			ft_finally_print(list, flags, (char *)dir->content);
 		ft_putchar('\n');
 		if (is_option('R', flags) != 0)
-		{
-			recurse(list, flags, (char *)dir->content);
-			ft_lstdel(&list, &del);
-		}
+			do_cap_r(list, flags, (char *)dir->content);
 		if (dir->next != NULL)
 			ft_putchar('\n');
 		dir = dir->next;
